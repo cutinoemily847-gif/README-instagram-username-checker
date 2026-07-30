@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram Username Checker - Find Your Perfect Handle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📱 Instagram Username Checker</h1>
+            <p>Find the perfect available Instagram handle</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Search Tab -->
+            <div class="tab-buttons">
+                <button class="tab-btn active" data-tab="search">🔍 Smart Search</button>
+                <button class="tab-btn" data-tab="browse">📋 Browse Short Usernames</button>
+                <button class="tab-btn" data-tab="advanced">⚙️ Advanced Tools</button>
+            </div>
+
+            <!-- Tab 1: Smart Search -->
+            <div id="search" class="tab-content active">
+                <div class="search-card">
+                    <h2>Find Usernames Based on Your Preferences</h2>
+                    
+                    <div class="form-group">
+                        <label for="keyword">Reference Word (Optional)</label>
+                        <input type="text" id="keyword" placeholder="e.g., Danay, Alex, Tech..." class="input-field">
+                        <small>Leave empty to search without a reference word</small>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lengthMin">Minimum Length</label>
+                            <input type="number" id="lengthMin" min="1" max="30" value="1" class="input-field">
+                        </div>
+                        <div class="form-group">
+                            <label for="lengthMax">Maximum Length</label>
+                            <input type="number" id="lengthMax" min="1" max="30" value="5" class="input-field">
+                        </div>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="includeNumbers" checked>
+                            Include Numbers
+                        </label>
+                        <label>
+                            <input type="checkbox" id="includeLetters" checked>
+                            Include Letters
+                        </label>
+                        <label>
+                            <input type="checkbox" id="exotic" checked>
+                            Exotic Only
+                        </label>
+                    </div>
+
+                    <button id="searchBtn" class="btn btn-primary">🚀 Search Usernames</button>
+
+                    <div id="searchResults" class="results-container" style="display:none;">
+                        <h3>Available Usernames (<span id="resultCount">0</span>)</h3>
+                        <div id="resultsList" class="results-grid">
+                        </div>
+                    </div>
+
+                    <div id="noResults" class="no-results" style="display:none;">
+                        <p>No usernames found matching your criteria. Try adjusting your search!</p>
+                    </div>
+
+                    <div id="searchLoading" class="loading" style="display:none;">
+                        <div class="spinner"></div>
+                        <p>Searching Instagram... this may take a moment</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Browse Short Usernames -->
+            <div id="browse" class="tab-content">
+                <div class="browse-card">
+                    <h2>Short & Exotic Usernames (1-5 Letters)</h2>
+                    <p>Discover available short usernames on Instagram</p>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="browseLength">Filter by Length</label>
+                            <select id="browseLength" class="input-field">
+                                <option value="all">All (1-5 letters)</option>
+                                <option value="1">1 Letter</option>
+                                <option value="2">2 Letters</option>
+                                <option value="3">3 Letters</option>
+                                <option value="4">4 Letters</option>
+                                <option value="5">5 Letters</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="browseType">Type</label>
+                            <select id="browseType" class="input-field">
+                                <option value="all">All</option>
+                                <option value="letters">Letters Only</option>
+                                <option value="numbers">Numbers Only</option>
+                                <option value="mixed">Mixed</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button id="browseBtn" class="btn btn-primary">📂 Load Usernames</button>
+
+                    <div id="browseResults" class="results-container" style="display:none;">
+                        <h3>Available Usernames (<span id="browseCount">0</span>)</h3>
+                        <div id="browseList" class="results-grid">
+                        </div>
+                    </div>
+
+                    <div id="browseLoading" class="loading" style="display:none;">
+                        <div class="spinner"></div>
+                        <p>Loading usernames...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Advanced Tools -->
+            <div id="advanced" class="tab-content">
+                <div class="advanced-card">
+                    <h2>Advanced Tools</h2>
+
+                    <!-- Check Single Username -->
+                    <div class="tool-section">
+                        <h3>Check Single Username</h3>
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 1;">
+                                <input type="text" id="singleUsername" placeholder="Enter username..." class="input-field">
+                            </div>
+                            <button id="checkSingleBtn" class="btn btn-secondary">Check</button>
+                        </div>
+                        <div id="singleResult" class="result-card" style="display:none;"></div>
+                    </div>
+
+                    <!-- Bulk Check -->
+                    <div class="tool-section">
+                        <h3>Bulk Check Usernames</h3>
+                        <textarea id="bulkInput" class="input-field" placeholder="Enter usernames (one per line)" rows="6"></textarea>
+                        <button id="checkBulkBtn" class="btn btn-secondary">Check All</button>
+                        <div id="bulkResults" class="results-container" style="display:none;">
+                            <h4>Results</h4>
+                            <div id="bulkList" class="results-grid"></div>
+                        </div>
+                    </div>
+
+                    <!-- Generate Similar -->
+                    <div class="tool-section">
+                        <h3>Generate Similar Usernames</h3>
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 1;">
+                                <input type="text" id="similarBase" placeholder="Base username..." class="input-field">
+                            </div>
+                            <button id="generateSimilarBtn" class="btn btn-secondary">Generate</button>
+                        </div>
+                        <div id="similarResults" class="results-container" style="display:none;">
+                            <h4>Similar Usernames</h4>
+                            <div id="similarList" class="results-grid"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Favorites Section -->
+        <div class="favorites-section">
+            <h3>❤️ Favorites</h3>
+            <div id="favoritesList" class="favorites-grid">
+                <p class="empty-message">No favorites yet. Click the heart icon to save usernames!</p>
+            </div>
+            <button id="exportBtn" class="btn btn-secondary" style="display:none;">📥 Export Favorites</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>Made with ❤️ | Instagram Username Checker</p>
+        <p>Disclaimer: This tool checks username availability on Instagram. Results may vary.</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
